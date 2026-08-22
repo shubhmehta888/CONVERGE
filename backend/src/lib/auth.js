@@ -40,6 +40,14 @@ export async function registerUser({ name, email, password }) {
     name: name.trim(),
     email: normalizedEmail,
     verified: normalizedEmail.endsWith("@scaler.com") || normalizedEmail.endsWith("@scaler.school"),
+    initials: name.trim().split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase(),
+    role: "New campus member",
+    skills: ["Curious collaborator", "Mindset"],
+    tags: ["mindset"],
+    bio: "New to the Converge campus network and open to finding good people to learn and grow with.",
+    availability: "Open to meeting",
+    availabilityTags: ["this-week"],
+    remote: false,
     passwordHash: await hashPassword(password),
     createdAt: new Date().toISOString()
   };
@@ -76,4 +84,58 @@ export function logoutUser(token) {
   const database = readDatabase();
   database.sessions = database.sessions.filter((session) => session.token !== token);
   writeDatabase(database);
+}
+
+export function getRegisteredProfiles() {
+  return readDatabase().users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    initials: user.initials,
+    role: user.role,
+    skills: user.skills,
+    tags: user.tags,
+    bio: user.bio,
+    availability: user.availability,
+    availabilityTags: user.availabilityTags,
+    remote: user.remote
+  }));
+}
+
+export function getUserIdFromToken(token) {
+  const user = getUserFromToken(token);
+  return user?.id || null;
+}
+
+export function addConnection(token, profileId, note) {
+  const database = readDatabase();
+  const userId = getUserIdFromToken(token);
+  if (!userId) throw new Error("Not authenticated");
+  const connections = database.connections || [];
+  const connection = { id: randomBytes(12).toString("hex"), fromUserId: userId, toProfileId: profileId, note, status: "pending", createdAt: new Date().toISOString() };
+  database.connections = [...connections.filter((item) => !(item.fromUserId === userId && item.toProfileId === profileId)), connection];
+  writeDatabase(database);
+  return connection;
+}
+
+export function getConnections(token) {
+  const userId = getUserIdFromToken(token);
+  if (!userId) return [];
+  return (readDatabase().connections || []).filter((item) => item.fromUserId === userId);
+}
+
+export function addMessage(token, profileId, text) {
+  const database = readDatabase();
+  const userId = getUserIdFromToken(token);
+  if (!userId) throw new Error("Not authenticated");
+  const messages = database.messages || [];
+  const message = { id: randomBytes(12).toString("hex"), fromUserId: userId, profileId, text, createdAt: new Date().toISOString() };
+  database.messages = [...messages, message];
+  writeDatabase(database);
+  return message;
+}
+
+export function getMessages(token, profileId) {
+  const userId = getUserIdFromToken(token);
+  if (!userId) return [];
+  return (readDatabase().messages || []).filter((item) => item.fromUserId === userId && item.profileId === profileId);
 }

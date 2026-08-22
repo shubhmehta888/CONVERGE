@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { api } from "../api.js";
 
 const initialColors = [
   "bg-violet/20 text-violet-bright",
@@ -14,9 +16,13 @@ export default function ProfileCard({ profile, whyMatched, index = 0, variant = 
   const [request, setRequest] = useState(() => JSON.parse(localStorage.getItem("converge-requests") || "[]").find((item) => item.profileId === profile.id));
   const [note, setNote] = useState(`Hey ${profile.name.split(" ")[0]}, I think we could be a great match. Want to connect on campus?`);
   const [composerOpen, setComposerOpen] = useState(false);
+  const [requestError, setRequestError] = useState("");
+  const navigate = useNavigate();
 
-  function sendRequest(event) {
+  async function sendRequest(event) {
     event.preventDefault();
+    if (!localStorage.getItem("converge-token")) { setComposerOpen(false); navigate("/login"); return; }
+    try { await api.createConnection(profile.id, note); } catch (error) { setRequestError(error.message); return; }
     const requests = JSON.parse(localStorage.getItem("converge-requests") || "[]").filter((item) => item.profileId !== profile.id);
     const next = { profileId: profile.id, name: profile.name, initials: profile.initials, role: profile.role, note, sentAt: new Date().toISOString() };
     localStorage.setItem("converge-requests", JSON.stringify([...requests, next]));
@@ -76,6 +82,7 @@ export default function ProfileCard({ profile, whyMatched, index = 0, variant = 
           Connect with a note
         </button>
       )}
+      {requestError && <p className="mt-2 text-xs text-amber">{requestError}</p>}
 
       {composerOpen && <div className="fixed inset-0 z-[60] flex items-end justify-center bg-[#182B25]/35 p-4 backdrop-blur-sm sm:items-center"><form onSubmit={sendRequest} className="w-full max-w-md rounded-2xl border border-edge bg-surface p-5 shadow-2xl"><div className="flex items-start justify-between gap-4"><div><span className="mono-label text-[10px] text-amber">New connection</span><h4 className="mt-1 font-display text-xl font-semibold">Say hello to {profile.name.split(" ")[0]}</h4></div><button type="button" onClick={() => setComposerOpen(false)} className="text-xl text-text-faint hover:text-text" aria-label="Close">×</button></div><textarea value={note} onChange={(event) => setNote(event.target.value)} rows={4} className="mt-5 w-full resize-none rounded-xl border border-edge bg-ink/40 p-3 text-sm leading-relaxed text-text placeholder:text-text-faint focus:border-violet/60" /><p className="mt-2 text-xs text-text-faint">Your note will appear in Chats as a new conversation.</p><div className="mt-5 flex justify-end gap-2"><button type="button" onClick={() => setComposerOpen(false)} className="rounded-full border border-edge px-4 py-2 text-sm text-text-muted hover:text-text">Cancel</button><button type="submit" disabled={!note.trim()} className="rounded-full bg-violet px-5 py-2 text-sm font-medium text-white hover:bg-violet-bright disabled:opacity-50">Send request</button></div></form></div>}
     </div>

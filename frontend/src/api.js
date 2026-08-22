@@ -27,4 +27,9 @@ export const api = {
   login: (email, password) => request("/auth/login", { method: "POST", body: JSON.stringify({ email, password }) }),
   me: () => request("/auth/me"),
   logout: () => request("/auth/logout", { method: "POST" })
+  ,
+  createConnection: (profileId, note) => request("/social/connections", { method: "POST", body: JSON.stringify({ profileId, note }) }),
+  listConnections: () => request("/social/connections"),
+  listMessages: (profileId) => request(`/social/messages/${profileId}`),
+  sendMessage: (profileId, text) => request("/social/messages", { method: "POST", body: JSON.stringify({ profileId, text }) })
 };

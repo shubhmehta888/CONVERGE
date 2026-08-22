@@ -9,15 +9,27 @@ export default function Chats() {
   const [messages, setMessages] = useState(() => JSON.parse(localStorage.getItem("converge-messages") || "{}"));
   const [draft, setDraft] = useState("");
 
-  useEffect(() => { api.listProfiles(40).then((data) => setProfiles(data.profiles)).catch(() => {}); }, []);
+  useEffect(() => {
+    api.listProfiles(40).then((data) => {
+      setProfiles(data.profiles);
+      return api.listConnections().then((connectionData) => connectionData.connections.map((item) => {
+        const profile = data.profiles.find((candidate) => candidate.id === item.toProfileId);
+        return profile ? { profileId: profile.id, name: profile.name, initials: profile.initials, role: profile.role, note: item.note } : null;
+      }).filter(Boolean));
+    }).then((remoteRequests) => {
+      if (remoteRequests.length) { setRequests(remoteRequests); setSelectedId(remoteRequests[0].profileId); }
+    }).catch(() => {});
+  }, []);
   const selected = requests.find((request) => request.profileId === selectedId);
   const thread = messages[selectedId] || (selected ? [{ from: "them", text: selected.note }] : []);
 
   function sendMessage(event) {
     event.preventDefault();
     if (!draft.trim() || !selectedId) return;
-    const next = { ...messages, [selectedId]: [...thread, { from: "you", text: draft.trim() }] };
+    const text = draft.trim();
+    const next = { ...messages, [selectedId]: [...thread, { from: "you", text }] };
     setMessages(next); localStorage.setItem("converge-messages", JSON.stringify(next)); setDraft("");
+    if (localStorage.getItem("converge-token")) api.sendMessage(selectedId, text).catch(() => {});
   }
   function removeChat(id) {
     const next = requests.filter((request) => request.profileId !== id);
