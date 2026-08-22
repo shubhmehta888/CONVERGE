@@ -17,7 +17,10 @@ const SKILL_LEXICON = [
   "rag", "langchain", "prompt engineering", "pytorch", "vector db",
   "data viz", "recommendation systems", "system design", "rest apis",
   "apis", "storytelling", "pitching", "public speaking", "go-to-market",
-  "roadmapping", "user research", "accessibility", "auth"
+  "roadmapping", "user research", "accessibility", "auth", "football", "cricket",
+  "basketball", "badminton", "running", "fitness", "gym", "yoga", "music", "guitar",
+  "dance", "photography", "books", "reading", "study buddy", "mathematics", "physics",
+  "finance", "entrepreneurship", "public speaking", "mental health", "movies", "gaming"
 ];
 
 const ROLE_LEXICON = {
@@ -29,7 +32,11 @@ const ROLE_LEXICON = {
   ml: ["ml", "machine learning", "llm", "llms", "rag", "ai engineer", "data scien"],
   data: ["data analyst", "data scientist", "data engineer"],
   growth: ["pitch", "growth", "marketing", "storytelling", "gtm"],
-  infra: ["devops", "infra", "deploy", "docker", "aws", "ci/cd"]
+  infra: ["devops", "infra", "deploy", "docker", "aws", "ci/cd"],
+  sports: ["sport", "football", "cricket", "basketball", "badminton", "running", "fitness", "gym", "yoga"],
+  study: ["study", "study buddy", "mathematics", "physics", "exam", "academic"],
+  culture: ["music", "guitar", "dance", "photography", "books", "reading", "movies", "gaming"],
+  mindset: ["mindset", "mental health", "wellness", "accountability", "habits"]
 };
 
 const AVAILABILITY_LEXICON = {

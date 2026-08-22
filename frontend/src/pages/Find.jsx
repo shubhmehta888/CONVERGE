@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard.jsx";
 import { api } from "../api.js";
 
@@ -10,11 +11,17 @@ const EXAMPLES = [
 ];
 
 export default function Find() {
+  const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(EXAMPLES[0]);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [meta, setMeta] = useState(null);
+
+  useEffect(() => {
+    const preset = searchParams.get("query");
+    if (preset) setQuery(preset);
+  }, [searchParams]);
 
   async function runSearch(e) {
     e?.preventDefault();

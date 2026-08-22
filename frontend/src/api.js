@@ -1,8 +1,9 @@
-const BASE = "/api";
+const BASE = import.meta.env.VITE_API_URL || "/api";
 
 async function request(path, options = {}) {
+  const token = localStorage.getItem("converge-token");
   const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     ...options
   });
   if (!res.ok) {
@@ -21,5 +22,9 @@ export const api = {
     request("/team/analyze", {
       method: "POST",
       body: JSON.stringify({ projectDescription, team })
-    })
+    }),
+  register: (name, email, password) => request("/auth/register", { method: "POST", body: JSON.stringify({ name, email, password }) }),
+  login: (email, password) => request("/auth/login", { method: "POST", body: JSON.stringify({ email, password }) }),
+  me: () => request("/auth/me"),
+  logout: () => request("/auth/logout", { method: "POST" })
 };

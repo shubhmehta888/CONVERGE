@@ -6,6 +6,7 @@ import { profilesRouter } from "./src/routes/profiles.js";
 import { searchRouter } from "./src/routes/search.js";
 import { teamRouter } from "./src/routes/team.js";
 import { aiParsingEnabled } from "./src/lib/aiParser.js";
+import { authRouter } from "./src/routes/auth.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -20,6 +21,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/profiles", profilesRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/team", teamRouter);
+app.use("/api/auth", authRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: "Not found" });

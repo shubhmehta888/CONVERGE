@@ -182,5 +182,113 @@ export const profiles = [
     availability: "Free tonight · till 1am",
     availabilityTags: ["tonight", "late-night"],
     remote: false
+  },
+  {
+    id: "kavya-nair",
+    name: "Kavya Nair",
+    initials: "KN",
+    role: "Football + fitness buddy",
+    skills: ["Football", "Fitness", "Running", "Accountability", "Mindset"],
+    tags: ["sports", "mindset"],
+    bio: "Organises evening turf games and keeps the group moving when deadlines get loud.",
+    availability: "On campus · evenings",
+    availabilityTags: ["evening"],
+    remote: false
+  },
+  {
+    id: "rohan-bhat",
+    name: "Rohan Bhat",
+    initials: "RB",
+    role: "Study partner",
+    skills: ["Mathematics", "Physics", "Deep work", "Study buddy", "Accountability"],
+    tags: ["study", "mindset"],
+    bio: "Calm, consistent study partner for problem sets, exam sprints, and honest progress checks.",
+    availability: "Library · afternoons",
+    availabilityTags: ["daytime", "this-week"],
+    remote: false
+  },
+  {
+    id: "ishita-menon",
+    name: "Ishita Menon",
+    initials: "IM",
+    role: "Music + culture connector",
+    skills: ["Guitar", "Music", "Photography", "Events", "Storytelling"],
+    tags: ["culture", "growth"],
+    bio: "Building the campus open-mic circle and always looking for a new collaborator or jam buddy.",
+    availability: "On campus · weekends",
+    availabilityTags: ["weekend"],
+    remote: false
+  },
+  {
+    id: "aditya-rao",
+    name: "Aditya Rao",
+    initials: "AR",
+    role: "Entrepreneurial mindset",
+    skills: ["Entrepreneurship", "Public speaking", "Mindset", "Reading", "Pitching"],
+    tags: ["mindset", "growth", "pitch"],
+    bio: "Likes ambitious conversations, tiny experiments, and finding people who actually follow through.",
+    availability: "Free tonight · common room",
+    availabilityTags: ["tonight", "evening"],
+    remote: false
+  },
+  {
+    id: "zoya-khan",
+    name: "Zoya Khan",
+    initials: "ZK",
+    role: "Badminton + wellness buddy",
+    skills: ["Badminton", "Yoga", "Fitness", "Wellness", "Mindset"],
+    tags: ["sports", "mindset"],
+    bio: "Keeps a friendly morning badminton group and believes a clear head makes better work.",
+    availability: "On campus · mornings",
+    availabilityTags: ["daytime", "this-week"],
+    remote: false
+  },
+  {
+    id: "nikhil-jain",
+    name: "Nikhil Jain",
+    initials: "NJ",
+    role: "Finance + startup thinker",
+    skills: ["Finance", "Entrepreneurship", "Research", "Pitching", "Reading"],
+    tags: ["growth", "mindset"],
+    bio: "Enjoys breaking down business models, swapping book notes, and testing ideas in public.",
+    availability: "Common room · evenings",
+    availabilityTags: ["evening", "tonight"],
+    remote: false
+  },
+  {
+    id: "tara-shah",
+    name: "Tara Shah",
+    initials: "TS",
+    role: "Dance + creative collaborator",
+    skills: ["Dance", "Music", "Motion design", "Photography", "Events"],
+    tags: ["culture", "design"],
+    bio: "Looking for people to make campus feel more alive, from short films to spontaneous dance.",
+    availability: "On campus · weekends",
+    availabilityTags: ["weekend"],
+    remote: false
+  },
+  {
+    id: "sameer-patel",
+    name: "Sameer Patel",
+    initials: "SP",
+    role: "Gaming + community host",
+    skills: ["Gaming", "Events", "Community", "Storytelling", "Teamwork"],
+    tags: ["culture", "growth"],
+    bio: "Hosts low-stakes game nights and knows how to turn a room of strangers into a squad.",
+    availability: "Free tonight · common room",
+    availabilityTags: ["tonight", "evening"],
+    remote: false
+  },
+  {
+    id: "ananya-iyer",
+    name: "Ananya Iyer",
+    initials: "AI",
+    role: "Maths + accountability partner",
+    skills: ["Mathematics", "Problem solving", "Study buddy", "Deep work", "Accountability"],
+    tags: ["study", "mindset"],
+    bio: "Makes difficult problem sets feel manageable with focused sessions and zero judgment.",
+    availability: "Library · afternoons",
+    availabilityTags: ["daytime", "this-week"],
+    remote: false
   }
 ];
