@@ -25,6 +25,12 @@ app.use("/api/team", teamRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/social", socialRouter);
 
+app.use((error, req, res, next) => {
+  console.error(error);
+  if (res.headersSent) return next(error);
+  res.status(503).json({ error: error.message || "Service unavailable" });
+});
+
 app.use((req, res) => {
   res.status(404).json({ error: "Not found" });
 });

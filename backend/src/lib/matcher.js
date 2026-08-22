@@ -1,6 +1,7 @@
 import { profiles } from "../data/profiles.js";
 import { parseQuery } from "./parseQuery.js";
 import { parseQueryWithAI, aiParsingEnabled } from "./aiParser.js";
+import { getRegisteredProfiles } from "./auth.js";
 
 const SKILL_WEIGHT = 3;
 const ROLE_WEIGHT = 2;
@@ -68,7 +69,8 @@ export async function findMatches(rawQuery, { limit = 8 } = {}) {
     intent = parseQuery(rawQuery);
   }
 
-  const scored = profiles.map((profile) => {
+  const allProfiles = [...profiles, ...(await getRegisteredProfiles())];
+  const scored = allProfiles.map((profile) => {
     const { score, reasons, matchedSkills, matchedRoles, matchedAvailability } = scoreProfile(
       profile,
       intent
