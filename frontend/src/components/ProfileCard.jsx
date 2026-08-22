@@ -22,7 +22,18 @@ export default function ProfileCard({ profile, whyMatched, index = 0, variant = 
   async function sendRequest(event) {
     event.preventDefault();
     if (!localStorage.getItem("converge-token")) { setComposerOpen(false); navigate("/login"); return; }
-    try { await api.createConnection(profile.id, note); } catch (error) { setRequestError(error.message); return; }
+    try { await api.createConnection(profile.id, note); } catch (error) {
+      if (error.message.includes("401") || error.message.toLowerCase().includes("authenticated")) {
+        localStorage.removeItem("converge-token");
+        localStorage.removeItem("converge-user");
+        window.dispatchEvent(new Event("converge-auth-change"));
+        setComposerOpen(false);
+        navigate("/login");
+        return;
+      }
+      setRequestError(error.message);
+      return;
+    }
     const requests = JSON.parse(localStorage.getItem("converge-requests") || "[]").filter((item) => item.profileId !== profile.id);
     const next = { profileId: profile.id, name: profile.name, initials: profile.initials, role: profile.role, note, sentAt: new Date().toISOString() };
     localStorage.setItem("converge-requests", JSON.stringify([...requests, next]));

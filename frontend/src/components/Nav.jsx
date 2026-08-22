@@ -29,6 +29,13 @@ export default function Nav() {
     }
     window.addEventListener("converge-auth-change", refreshUser);
     window.addEventListener("storage", refreshUser);
+    if (localStorage.getItem("converge-token")) {
+      api.me().catch(() => {
+        localStorage.removeItem("converge-token");
+        localStorage.removeItem("converge-user");
+        setUser(null);
+      });
+    }
     return () => {
       window.removeEventListener("converge-auth-change", refreshUser);
       window.removeEventListener("storage", refreshUser);
