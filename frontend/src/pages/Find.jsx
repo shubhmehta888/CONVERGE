@@ -85,8 +85,8 @@ export default function Find() {
       </form>
 
       {error && (
-        <p className="mt-8 rounded-xl border border-edge bg-surface/60 p-4 text-sm text-amber">
-          Couldn't reach the Converge API ({error}). Make sure the backend is running on port 4000.
+        <p className="mt-8 rounded-xl border border-edge bg-surface/60 p-4 text-sm text-text-muted">
+          Search isn't available right now — check back shortly.
         </p>
       )}
 

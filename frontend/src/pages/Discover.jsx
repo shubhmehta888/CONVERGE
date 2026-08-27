@@ -58,7 +58,7 @@ export default function Discover() {
       </div>
 
       {loading && <p className="py-12 text-sm text-text-muted">Loading the campus network...</p>}
-      {error && <p className="mt-8 rounded-xl border border-edge bg-surface/60 p-4 text-sm text-amber">Couldn&apos;t load campus profiles ({error}).</p>}
+      {error && <p className="mt-8 rounded-xl border border-edge bg-surface/60 p-4 text-sm text-text-muted">Profiles aren&apos;t available right now — check back shortly.</p>}
       {!loading && !error && filtered.length === 0 && <div className="py-16 text-center"><p className="font-display text-xl font-semibold">No exact match yet.</p><p className="mt-2 text-sm text-text-muted">Try another interest or clear the search.</p></div>}
       {!loading && !error && filtered.length > 0 && <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((profile, index) => <ProfileCard key={profile.id} profile={profile} index={index} variant="match" />)}</div>}
 

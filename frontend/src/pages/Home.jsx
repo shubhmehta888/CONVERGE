@@ -105,8 +105,8 @@ export default function Home() {
             </div>
           )}
           {error && (
-            <p className="rounded-xl border border-edge bg-surface/60 p-4 text-sm text-amber">
-              Couldn't reach the Converge API ({error}). Make sure the backend is running on port 4000.
+            <p className="rounded-xl border border-edge bg-surface/60 p-4 text-sm text-text-muted">
+              Live profiles aren't available right now — check back shortly.
             </p>
           )}
           {!loading && !error && (
