@@ -8,6 +8,17 @@
       name="description"
       content="Converge matches students by skills, intent and availability. Describe what you need in plain English and get ranked matches with clear reasons."
     />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0B1220" />
+
+    <!-- Security headers that also work on hosts that don't allow custom HTTP headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https: ws: wss:; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,7 +27,27 @@
     />
   </head>
   <body class="bg-ink text-text font-body antialiased">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Boot splash: paints instantly, before any JS/CSS loads; React clears it on mount -->
+      <div
+        id="boot-splash"
+        style="position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#0b1220;color:#e5eef7;font-family:'Inter',system-ui,sans-serif"
+      >
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#a8d86e">Scaler School of Technology</span>
+        <span style="font-size:28px;font-weight:600;letter-spacing:0.02em">CONVERGE</span>
+        <span style="display:flex;gap:6px" aria-hidden="true">
+          <span style="width:8px;height:8px;border-radius:99px;background:#21b89a"></span>
+          <span style="width:8px;height:8px;border-radius:99px;background:#63d8bd"></span>
+          <span style="width:8px;height:8px;border-radius:99px;background:#ff806d"></span>
+        </span>
+      </div>
+      <noscript>
+        <style>#boot-splash { display: none; }</style>
+        <div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b1220;color:#e5eef7;font-family:system-ui,sans-serif">
+          Converge needs JavaScript enabled to run.
+        </div>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

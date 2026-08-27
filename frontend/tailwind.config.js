@@ -20,7 +20,7 @@ export default {
         text: {
           DEFAULT: "#E5EEF7",
           muted: "#95A8BD",
-          faint: "#61748C"
+          faint: "#8296AD" // WCAG AA on ink/surface/surface-2 (was #61748C ≈ 3.9:1)
         },
         live: "#A8D86E"
       },

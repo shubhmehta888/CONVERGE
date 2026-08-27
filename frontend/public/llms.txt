@@ -1,0 +1,30 @@
+# Converge
+
+> Converge is the student connection layer for Scaler School of Technology (SST). It helps students find the right people on campus fast — study partners, hackathon teammates, and communities — using natural-language matching with clear, explainable reasons for every match.
+
+Converge is a full-stack web app: a React front end backed by an Express API. Students describe what they need in plain English ("I need a React developer for my hackathon tonight") and get ranked profiles with plain-English explanations. A Team Builder analyzes a project description against a team's combined skills and recommends the person who best fills the biggest gap.
+
+## Pages
+
+- [Home](https://voiceofurwebsite.glitchx.org/): Product overview with live stats and featured student profiles.
+- [Find People](https://voiceofurwebsite.glitchx.org/find): Natural-language search over the student profile pool with explainable, ranked matches.
+- [Team Builder](https://voiceofurwebsite.glitchx.org/team): Team gap analysis — strengths, missing categories, and a recommended addition.
+- [Discover](https://voiceofurwebsite.glitchx.org/discover): Browse people, circles, and events across campus.
+- [Events](https://voiceofurwebsite.glitchx.org/events): Campus events feed.
+- [Campus Live](https://voiceofurwebsite.glitchx.org/campus-live): Live campus activity.
+- [Circles](https://voiceofurwebsite.glitchx.org/circles): Interest-based student circles.
+- [Vibe](https://voiceofurwebsite.glitchx.org/vibe): Campus mood and energy.
+- [Log in](https://voiceofurwebsite.glitchx.org/login): Account access for verified SST students.
+
+## Public API
+
+- GET /api/health: Liveness check and whether AI-powered query parsing is enabled.
+- GET /api/profiles: List student profiles (optional ?limit=n).
+- POST /api/search: Ranked, explained matches for a free-text ask ({ "query": string }).
+- POST /api/team/analyze: Team strengths, gaps, and a recommended addition ({ "projectDescription": string, "team": [...] }).
+
+## Notes for AI crawlers
+
+- Profile content shown on the site is intended to be public within the SST student community.
+- Do not attempt to access authenticated areas, accounts data, or non-public endpoints.
+- Converge is built for Scaler School of Technology students; content is specific to that campus community.
